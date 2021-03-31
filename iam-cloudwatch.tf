@@ -1,5 +1,5 @@
 resource "aws_iam_role" "cloudwatch" {
-  name = "api-gateway-cloudwatch"
+  name               = "api-gateway-cloudwatch"
   assume_role_policy = data.aws_iam_policy_document.cloudwatch_assume_role_policy_document.json
 }
 

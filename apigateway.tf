@@ -34,6 +34,21 @@ resource "aws_api_gateway_method_settings" "spacelift_webhook" {
   }
 }
 
+resource "aws_api_gateway_method_response" "response_200" {
+  rest_api_id = aws_api_gateway_rest_api.spacelift_webhook.id
+  resource_id = aws_api_gateway_resource.spacelift_webhook.id
+  http_method = aws_api_gateway_method.spacelift_webhook.http_method
+  status_code = "200"
+}
+
+resource "aws_api_gateway_integration_response" "spacelift_webhook_response" {
+  depends_on  = [aws_api_gateway_integration.spacelift_webhook]
+  rest_api_id = aws_api_gateway_rest_api.spacelift_webhook.id
+  resource_id = aws_api_gateway_resource.spacelift_webhook.id
+  http_method = aws_api_gateway_method.spacelift_webhook.http_method
+  status_code = aws_api_gateway_method_response.response_200.status_code
+}
+
 resource "aws_api_gateway_stage" "spacelift_webhook" {
   deployment_id = aws_api_gateway_deployment.spacelift_webhook.id
   rest_api_id   = aws_api_gateway_rest_api.spacelift_webhook.id
@@ -48,6 +63,7 @@ resource "aws_api_gateway_deployment" "spacelift_webhook" {
       aws_api_gateway_resource.spacelift_webhook,
       aws_api_gateway_method.spacelift_webhook,
       aws_api_gateway_integration.spacelift_webhook,
+      aws_api_gateway_integration_response.spacelift_webhook_response,
     ]))
   }
 
@@ -99,9 +115,9 @@ resource "aws_api_gateway_integration" "spacelift_webhook" {
             "id": { "S": "$inputRoot.stack.id" },
             "name": { "S": "$inputRoot.stack.name" },
             "description": { "S": "$inputRoot.stack.description" },
-            "labels": { "SS": [
+            "labels": { "L": [
                 #foreach($elem in $inputRoot.stack.labels)
-                "$elem"#if($foreach.hasNext),#end
+                { "S": "$elem" }#if($foreach.hasNext),#end
                 #end
             ]}
         }}
