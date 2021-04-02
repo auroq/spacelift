@@ -1,6 +1,24 @@
 # This file is maintained automatically by "terraform init".
 # Manual edits may be lost in future updates.
 
+provider "registry.terraform.io/hashicorp/archive" {
+  version = "2.1.0"
+  hashes = [
+    "h1:f3WXKM/FBu5EMY6j2BGt982hzVMNicrxTyEAz5EsrOU=",
+    "zh:033279ecbf60f565303222e9a6d26b50fdebe43aa1c6e8f565f09bb64d67c3fd",
+    "zh:0af998e42eb421c92e87202df5bfee436b3cfe553214394f08d786c72a9e3f70",
+    "zh:1183b661c692f38409a61eefb5d412167c246fcd9e49d4d61d6d910012d206ba",
+    "zh:5febb66f4a8207117f71dcd460fb9c81d3afb7b600b5e598cf517cf6e27cf4b2",
+    "zh:66135ce46d29d0ccf0e3b6a119423754ca334dbf4266bc989cce5b0b667b5fde",
+    "zh:6b9dc1a4f0a680bb650a7191784927f99675a8c8dd3c155ba821185f630db604",
+    "zh:91e249482c016ecf6bf8b83849964005cd2d0b4396688419cd1752809b46b23e",
+    "zh:a6a2e5f2f010c511e66174cb84ea18899e8bcfc1354c4b9fed972fdb131ffffc",
+    "zh:bb1f6abc76552a883732caff897ff7b07a91977a9b4bb97915f6aac54116bb65",
+    "zh:f05a9a63607f85719fde705f58d82ee16fa67f9158a5c3424c0216507631eddf",
+    "zh:fc603a05a06814387ffa4a054d1baee8ea6b5ab32c53cb73e90a5bf9a2616777",
+  ]
+}
+
 provider "registry.terraform.io/hashicorp/aws" {
   version = "3.34.0"
   hashes = [
@@ -19,19 +37,31 @@ provider "registry.terraform.io/hashicorp/aws" {
   ]
 }
 
-provider "registry.terraform.io/hashicorp/vault" {
-  version = "2.19.0"
+provider "registry.terraform.io/hashicorp/random" {
+  version = "3.1.0"
   hashes = [
-    "h1:ZF9gGmvcqyM6KRoBwynQ01C+FtWS9s96sukTP+HMEyI=",
-    "zh:3aa278b0ddb522270233673250fd01bf46422b995f85ab862e40264b68f72181",
-    "zh:4fdc08743deb2c0c79ad8d459f6643fd0c75aac785c4a903103b35a98da1229a",
-    "zh:55dad60c6d23a842db85fa79f6601f689cd761ae24256662923c5c5f7b735ce5",
-    "zh:7e891e189773f9bb506048783c913207c73363117942a05101bfb1b9ab6e4634",
-    "zh:852862a3868ceb3e52cf120d7c40c12b304847bbdfdd801f6fa367ae4926fe56",
-    "zh:9844a25a2ad10f52e7c7898143be90c1fe7bba51c0fbbc05e7219629c08ac044",
-    "zh:a4e42e987ae7c0d868b8848802b189a98b86133461f2b9ecd4ec0f798b855e6f",
-    "zh:b1950043668e3a9654e7aaa8fa6de960e31f07a3546df4cd57d4ff50e247f1ad",
-    "zh:faae594a8683d58070ec4362fa606e59518052823c51065f28c4013b674d2976",
-    "zh:fd0cc6a461c144ae4b6c427be84bbafa057a6a7906fc3b50a972148d0e6072b4",
+    "h1:BZMEPucF+pbu9gsPk0G0BHx7YP04+tKdq2MrRDF1EDM=",
+    "zh:2bbb3339f0643b5daa07480ef4397bd23a79963cc364cdfbb4e86354cb7725bc",
+    "zh:3cd456047805bf639fbf2c761b1848880ea703a054f76db51852008b11008626",
+    "zh:4f251b0eda5bb5e3dc26ea4400dba200018213654b69b4a5f96abee815b4f5ff",
+    "zh:7011332745ea061e517fe1319bd6c75054a314155cb2c1199a5b01fe1889a7e2",
+    "zh:738ed82858317ccc246691c8b85995bc125ac3b4143043219bd0437adc56c992",
+    "zh:7dbe52fac7bb21227acd7529b487511c91f4107db9cc4414f50d04ffc3cab427",
+    "zh:a3a9251fb15f93e4cfc1789800fc2d7414bbc18944ad4c5c98f466e6477c42bc",
+    "zh:a543ec1a3a8c20635cf374110bd2f87c07374cf2c50617eee2c669b3ceeeaa9f",
+    "zh:d9ab41d556a48bd7059f0810cf020500635bfc696c9fc3adab5ea8915c1d886b",
+    "zh:d9e13427a7d011dbd654e591b0337e6074eef8c3b9bb11b2e39eaaf257044fd7",
+    "zh:f7605bd1437752114baf601bdf6931debe6dc6bfe3006eb7e9bb9080931dca8a",
+  ]
+}
+
+provider "spacelift.io/spacelift-io/spacelift" {
+  version = "1.0.0"
+  hashes = [
+    "h1:R9I3Y3Iv36YntFu41Y8CIoNevQlH4SJdUdvtyftVVoI=",
+    "zh:970d2a75908e2b0eb6c682d37ce7c17a778aafcf30672614fb32a5d9a6f9dd2f",
+    "zh:98ca4b0b54fbbac96c04356f8c60e5b5598a2a59e98eed1d4ddb8c2242d3d96c",
+    "zh:c2b607b7a497d100fc11802743561e1edf17ee00c1990e853c9d2569aade1792",
+    "zh:e07649f4294ca2dda34df2d315c6b0c2845250f08831011c80b825e8edde9d51",
   ]
 }

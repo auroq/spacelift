@@ -25,3 +25,11 @@ variable "db_read_capacity" {
 variable "db_write_capacity" {
   default = 20
 }
+
+### Spacelift
+
+variable "spacelift_account" { type = string }
+variable "spacelift_key_secret" { type = string }
+variable "spacelift_key_id" { type = string }
+
+variable "spacelift_stack_id" { type = string }

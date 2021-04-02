@@ -10,7 +10,8 @@ data "aws_iam_policy_document" "spacelift_assume_role_policy" {
       type = "Service"
       identifiers = [
         "dynamodb.amazonaws.com",
-        "apigateway.amazonaws.com"
+        "apigateway.amazonaws.com",
+        "lambda.amazonaws.com"
       ]
     }
   }
@@ -56,5 +57,21 @@ data "aws_iam_policy_document" "spacelift_webhook_dynamodb" {
     resources = [
       aws_dynamodb_table.spacelift_webhook.arn
     ]
+  }
+}
+
+resource "aws_iam_role_policy" "invocation_policy" {
+  name   = "default"
+  role   = aws_iam_role.spacelift_webhook.id
+  policy = data.aws_iam_policy_document.spacelift_webhook_lambda.json
+}
+
+data "aws_iam_policy_document" "spacelift_webhook_lambda" {
+  statement {
+    effect = "Allow"
+    actions = [
+      "lambda:InvokeFunction"
+    ]
+    resources = [aws_lambda_function.spacelift_webhook_verification.arn]
   }
 }

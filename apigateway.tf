@@ -7,17 +7,23 @@ resource "aws_api_gateway_rest_api" "spacelift_webhook" {
   description = "API Gateway for accepting webhooks from Spacelift"
 }
 
-resource "aws_api_gateway_resource" "spacelift_webhook" {
-  rest_api_id = aws_api_gateway_rest_api.spacelift_webhook.id
-  parent_id   = aws_api_gateway_rest_api.spacelift_webhook.root_resource_id
-  path_part   = "spacelift"
+resource "aws_api_gateway_authorizer" "spacelift_webhook_verification" {
+  name                             = "spacelift-webhook-verification"
+  rest_api_id                      = aws_api_gateway_rest_api.spacelift_webhook.id
+  authorizer_uri                   = aws_lambda_function.spacelift_webhook_verification.invoke_arn
+  authorizer_credentials           = aws_iam_role.spacelift_webhook.arn
+  type                             = "REQUEST"
+  identity_source                  = "method.request.header.X-Signature-256"
+  authorizer_result_ttl_in_seconds = 0
 }
 
 resource "aws_api_gateway_method" "spacelift_webhook" {
   rest_api_id   = aws_api_gateway_rest_api.spacelift_webhook.id
-  resource_id   = aws_api_gateway_resource.spacelift_webhook.id
+  resource_id   = aws_api_gateway_rest_api.spacelift_webhook.root_resource_id
   http_method   = "POST"
-  authorization = "NONE"
+  authorization = "CUSTOM"
+  authorizer_id = aws_api_gateway_authorizer.spacelift_webhook_verification.id
+
   request_models = {
     "application/json" = aws_api_gateway_model.webhook_body.name
   }
@@ -29,22 +35,24 @@ resource "aws_api_gateway_method_settings" "spacelift_webhook" {
   method_path = "*/*"
 
   settings {
-    metrics_enabled = true
-    logging_level   = "INFO"
+    metrics_enabled    = true
+    logging_level      = "INFO"
+    data_trace_enabled = true
   }
 }
 
 resource "aws_api_gateway_method_response" "response_200" {
   rest_api_id = aws_api_gateway_rest_api.spacelift_webhook.id
-  resource_id = aws_api_gateway_resource.spacelift_webhook.id
+  resource_id = aws_api_gateway_rest_api.spacelift_webhook.root_resource_id
   http_method = aws_api_gateway_method.spacelift_webhook.http_method
   status_code = "200"
 }
 
 resource "aws_api_gateway_integration_response" "spacelift_webhook_response" {
-  depends_on  = [aws_api_gateway_integration.spacelift_webhook]
+  depends_on = [
+  aws_api_gateway_integration.spacelift_webhook]
   rest_api_id = aws_api_gateway_rest_api.spacelift_webhook.id
-  resource_id = aws_api_gateway_resource.spacelift_webhook.id
+  resource_id = aws_api_gateway_rest_api.spacelift_webhook.root_resource_id
   http_method = aws_api_gateway_method.spacelift_webhook.http_method
   status_code = aws_api_gateway_method_response.response_200.status_code
 }
@@ -60,10 +68,10 @@ resource "aws_api_gateway_deployment" "spacelift_webhook" {
 
   triggers = {
     redeployment = sha1(jsonencode([
-      aws_api_gateway_resource.spacelift_webhook,
       aws_api_gateway_method.spacelift_webhook,
       aws_api_gateway_integration.spacelift_webhook,
       aws_api_gateway_integration_response.spacelift_webhook_response,
+      aws_api_gateway_authorizer.spacelift_webhook_verification,
     ]))
   }
 
@@ -74,7 +82,7 @@ resource "aws_api_gateway_deployment" "spacelift_webhook" {
 
 resource "aws_api_gateway_integration" "spacelift_webhook" {
   rest_api_id             = aws_api_gateway_rest_api.spacelift_webhook.id
-  resource_id             = aws_api_gateway_resource.spacelift_webhook.id
+  resource_id             = aws_api_gateway_rest_api.spacelift_webhook.root_resource_id
   http_method             = aws_api_gateway_method.spacelift_webhook.http_method
   type                    = "AWS"
   integration_http_method = "POST"
