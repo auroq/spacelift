@@ -25,4 +25,7 @@ provider "spacelift" {
 resource "random_password" "spacelift_webhook_secret" {
   length  = 25
   special = true
+  keepers {
+    secret_keeper = var.webhook_secret_keeper
+  }
 }

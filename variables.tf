@@ -3,6 +3,11 @@ variable "webhook_name" {
   description = "The name of the webhook context. This will be used for naming various resources such as the API, the lambda, and the database"
 }
 
+variable "webhook_secret_keeper" {
+  default = ""
+  description = "This value is used for rotating the Spacelift webhook secret which is used for request validation. Any time this value changes, the secret will be rotated."
+}
+
 ### AWS
 variable "aws_region" {
   type = string
