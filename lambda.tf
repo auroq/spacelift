@@ -16,7 +16,7 @@ resource "aws_lambda_function" "lambda_integration" {
   environment {
     variables = {
       SPACELIFT_WEBHOOK_SECRET = random_password.spacelift_webhook_secret.result
-      DYNAMODB_TABLE_NAME = aws_dynamodb_table.webhook_database.name
+      DYNAMODB_TABLE_NAME      = aws_dynamodb_table.webhook_database.name
     }
   }
 

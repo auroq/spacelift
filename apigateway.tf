@@ -5,7 +5,7 @@ resource "aws_api_gateway_account" "api_gateway_cloudwatch_role" {
 resource "aws_api_gateway_rest_api" "webhook_api" {
   name        = var.webhook_name
   description = "API Gateway for accepting webhooks from Spacelift"
-  tags = var.tags
+  tags        = var.tags
 }
 
 resource "aws_api_gateway_method" "webhook_post" {
