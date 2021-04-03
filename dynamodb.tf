@@ -1,5 +1,5 @@
-resource "aws_dynamodb_table" "spacelift_webhook" {
-  name           = var.db_name
+resource "aws_dynamodb_table" "webhook_database" {
+  name           = var.webhook_name
   read_capacity  = var.db_read_capacity
   write_capacity = var.db_write_capacity
   hash_key       = "runId"
