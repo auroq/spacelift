@@ -26,6 +26,7 @@ variable "aws_role_name" {
 }
 
 variable "tags" {
+  default = {}
   description = "Any tags to use for tagging AWS infrastructure. This should be an object."
 }
 
