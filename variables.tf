@@ -27,7 +27,7 @@ variable "aws_secret_key" {
 variable "aws_role_name" {
   type = string
   default = "spacelift-webhook"
-  description = "The name of the role to create for the webhook will use."
+  description = "The name of the role to create for the AWS infrastructure to use."
 }
 
 variable "tags" {

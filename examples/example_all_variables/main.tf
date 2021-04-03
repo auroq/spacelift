@@ -1,10 +1,16 @@
 module "spacelift_webhook_defaults" {
   source = "git@github.com:auroq/spacelift.git"
 
+  webhook_name = "mystack-webhook"
+  webhook_secret_keeper = "2020-03"  # Using a date for this value can tell you when the secret was last rotated
+
   aws_region     = "us-west-2"
   aws_access_key = "awsaccesskey"
   aws_secret_key = "awssecretkey"
 
+  aws_role_name = "mystack-webhook"
+
+  # tags can contain any keys and values, so you can use it to match your organization's AWS resource tagging practices.
   tags = {
     key1 = "value1"
     key2 = "value2"

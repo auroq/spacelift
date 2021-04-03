@@ -9,7 +9,7 @@ If validation is successful, the lambda persists the event to a [DynamoDB][aws-d
 
 This module also handles creation of the necessary AWS roles and policies as well as the webhook secret used for validating requests between Spacelift and AWS.
 
-See the [example directory][examples] for usage examples of this module.
+See the [examples directory][examples] for usage examples of this module.
 You can also find each each variable for the module documented in the [variables.tf][variables] file.
 
 
