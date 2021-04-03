@@ -1,7 +1,7 @@
 data "archive_file" "lambda_src" {
   type        = "zip"
   output_path = "${path.module}/src.zip"
-  source_file = "${path.module}/webhookverification.py"
+  source_file = "${path.module}/main.py"
 }
 
 resource "aws_lambda_function" "spacelift_webhook_verification" {
@@ -9,13 +9,14 @@ resource "aws_lambda_function" "spacelift_webhook_verification" {
   role             = aws_iam_role.spacelift_webhook.arn
   filename         = data.archive_file.lambda_src.output_path
   source_code_hash = data.archive_file.lambda_src.output_base64sha256
-  handler          = "webhookverification.lambda_handler"
+  handler          = "main.lambda_handler"
   memory_size      = 128
   runtime          = "python3.8"
 
   environment {
     variables = {
       SPACELIFT_WEBHOOK_SECRET = random_password.spacelift_webhook_secret.result
+      DYNAMODB_TABLE_NAME = aws_dynamodb_table.spacelift_webhook.name
     }
   }
 }
