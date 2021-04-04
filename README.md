@@ -7,7 +7,7 @@ The API Gateway is a proxy to [AWS Lambda][aws-lambda] without any authorizor.
 Lambda handles validation by parsing the `x-signature-256` header from the request and comparing against it against the body of the request. See [Spacelift documentation][spacelift-validation] for more information.
 If validation is successful, the lambda persists the event to a [DynamoDB][aws-dynamodb] table.
 
-This module also handles creation of the necessary AWS roles and policies as well as the webhook secret used for validating requests between Spacelift and AWS.
+This module also handles creation of the necessary AWS roles, policies, CloudWatch logs and metrics, as well as the webhook secret used for validating requests between Spacelift and AWS.
 
 See the [examples directory][examples] for usage examples of this module.
 You can also find each each variable for the module documented in the [variables.tf][variables] file.
