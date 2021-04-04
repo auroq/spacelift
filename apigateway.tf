@@ -40,7 +40,7 @@ resource "aws_api_gateway_integration" "lambda_integration" {
 resource "aws_api_gateway_stage" "webhook_stage" {
   deployment_id = aws_api_gateway_deployment.webhook_deployment.id
   rest_api_id   = aws_api_gateway_rest_api.webhook_api.id
-  stage_name    = "webhook"
+  stage_name    = "current"
 }
 
 resource "aws_api_gateway_deployment" "webhook_deployment" {
@@ -48,8 +48,8 @@ resource "aws_api_gateway_deployment" "webhook_deployment" {
 
   triggers = {
     redeployment = sha1(jsonencode([
-      aws_api_gateway_method.webhook_post,
-      aws_api_gateway_integration.lambda_integration,
+      aws_api_gateway_integration.lambda_integration.uri,
+      aws_api_gateway_integration.lambda_integration.credentials,
     ]))
   }
 
