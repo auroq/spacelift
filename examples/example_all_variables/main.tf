@@ -1,4 +1,4 @@
-module "spacelift_webhook_defaults" {
+module "spacelift_webhook_mystack" {
   source = "git@github.com:auroq/spacelift.git"
 
   webhook_name          = "mystack-webhook"
