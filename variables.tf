@@ -9,21 +9,6 @@ variable "webhook_secret_keeper" {
 }
 
 ### AWS
-variable "aws_region" {
-  type        = string
-  description = "The AWS region in which to deploy the webhook"
-}
-variable "aws_access_key" {
-  type        = string
-  sensitive   = true
-  description = "AWS Access Key to use for authenticating to AWS to create resources"
-}
-variable "aws_secret_key" {
-  type        = string
-  sensitive   = true
-  description = "AWS Access Key to use for authenticating to AWS to create resources"
-}
-
 variable "aws_role_name" {
   type        = string
   default     = "spacelift-webhook"
@@ -46,18 +31,6 @@ variable "db_write_capacity" {
 }
 
 ### Spacelift
-variable "spacelift_account" {
-  type        = string
-  description = "The spacelift account with which to integrate"
-}
-variable "spacelift_key_id" {
-  type        = string
-  description = "The Spacelift API key ID to use for creating the webhook integration in spacelift"
-}
-variable "spacelift_key_secret" {
-  type        = string
-  description = "The Spacelift API key secret to use for creating the webhook integration in spacelift"
-}
 variable "spacelift_stack_id" {
   type        = string
   description = "The ID of the Spacelift stack on which to create the webhook integration"
