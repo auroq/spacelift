@@ -10,6 +10,6 @@ data "aws_iam_policy_document" "sqs_policy" {
     actions = [
       "sqs:SendMessage*",
     ]
-    resource = aws_api_gateway_rest_api.webhook_api.arn
+    resources = [aws_api_gateway_rest_api.webhook_api.arn]
   }
 }
