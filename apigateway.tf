@@ -33,7 +33,7 @@ resource "aws_api_gateway_integration" "lambda_integration" {
   http_method             = aws_api_gateway_method.webhook_post.http_method
   integration_http_method = "POST"
   type                    = "AWS"
-  uri                     = aws_lambda_function.sqs_queue.arn
+  uri                     = "arn:aws:apigateway:us-west-2:sqs:path/${aws_sqs_queue.queue.name}"
   credentials             = aws_iam_role.spacelift_role.arn
 }
 
